@@ -1,6 +1,6 @@
 import random
 
-Passwords = [
+passwords = [
     "Security@2023",
     "pass",
     "MyStr0ng#Key",
@@ -29,10 +29,10 @@ def simulate_password_reuse():
     Обирає 3 випадкові індекси зі списку та додає відповідні паролі
     дублікатами в кінець початкового списку.
     """
-    global Passwords
-    reused_indexes = random.sample(range(len(Passwords)), 3)
+    global passwords
+    reused_indexes = random.sample(range(len(passwords)), 3)
     for index in reused_indexes:
-        Passwords.append(Passwords[index])
+        passwords.append(passwords[index])
 
 
 def check_criteria(password: str) -> dict:
@@ -71,18 +71,18 @@ def evaluate_password(password: str, criteria: dict, forbidden: set, all_passwor
     return "Слабкий"
 
 
-def analyze_passwords(passwords: list, criteria: dict, forbidden: set) -> list:
+def analyze_passwords(all_passwords: list, criteria: dict, forbidden: set) -> list:
     """Аналізує весь список паролів та повертає результати."""
     results = []
-    for password in passwords:
-        strength = evaluate_password(password, criteria, forbidden, passwords)
+    for password in all_passwords:
+        strength = evaluate_password(password, criteria, forbidden, all_passwords)
         results.append((password, strength))
     return results
 
 
 def print_results_table(results: list) -> None:
     """Виводить результати аналізу у вигляді таблиці."""
-    password_width = max(len(password) for password in Passwords) + 2
+    password_width = max(len(password) for password in passwords) + 2
     strength_width = 16
 
     header = f"{'Пароль':<{password_width}}{'Рівень надійності':<{strength_width}}"
@@ -94,11 +94,11 @@ def print_results_table(results: list) -> None:
 
 def main() -> None:
     simulate_password_reuse()
-    count = len(Passwords)
+    count = len(passwords)
     print(f"\nСписок паролів після імітації повторного використання ({count} шт.):")
-    print(Passwords)
+    print(passwords)
 
-    results = analyze_passwords(Passwords, CRITERIA, FORBIDDEN_PASSWORDS)
+    results = analyze_passwords(passwords, CRITERIA, FORBIDDEN_PASSWORDS)
 
     print("\nРезультати аналізу надійності паролів:\n")
     print_results_table(results)
