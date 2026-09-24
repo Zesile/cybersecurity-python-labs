@@ -58,10 +58,7 @@ def print_resources(resources: list, security_levels: tuple) -> None:
 
 
 def check_access(username: str, resource_level: int, users: dict, blocked: set) -> tuple:
-    """Перевіряє доступ користувача до ресурсу.
-
-    Повертає кортеж (дозволено: bool, причина: str / None).
-    """
+    """Перевіряє доступ користувача до ресурсу."""
     if username not in users:
         return False, "User not found"
 
@@ -90,7 +87,7 @@ def run_access_checks(users: dict, resources: list, blocked: set) -> list:
 
 
 def print_access_results(results: list) -> None:
-    """Виводить результати перевірки доступу у заданому форматі."""
+    """Виводить результати перевірки доступу."""
     for username, resource_name, allowed, reason in results:
         status = "ALLOW" if allowed else f"DENY ({reason})"
         print(f"user={username:<16} resource={resource_name} -> {status}")
