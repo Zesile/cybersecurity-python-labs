@@ -45,7 +45,7 @@ USERS_TO_REGISTER = (
 
 
 def create_user(username: str, password: str) -> tuple:
-    """Створює запис користувача (логін, хеш) з персональною сіллю."""
+    """Створює запис користувача."""
     hash_value = generate_hash(password, PERSONAL_SALT)
     return username, hash_value
 
@@ -102,7 +102,7 @@ def _append_log_entry(entry: dict) -> None:
     os.makedirs(DATA_DIR, exist_ok=True)
     try:
         if os.path.exists(LOG_JSON_PATH):
-            with open(LOG_JSON_PATH, 'r', encoding="utf-8") as log_file:
+            with open(LOG_JSON_PATH, 'r') as log_file:
                 try:
                     events = json.load(log_file)
                 except json.JSONDecodeError:
@@ -111,7 +111,7 @@ def _append_log_entry(entry: dict) -> None:
             events = []
 
         events.append(entry)
-        with open(LOG_JSON_PATH, "w", encoding="utf-8") as log_file:
+        with open(LOG_JSON_PATH, "w") as log_file:
             json.dump(events, log_file, ensure_ascii=False, indent=2)
     except (FileNotFoundError, PermissionError, IOError) as error:
         print(f"Помилка запису журналу подій: {error}")
