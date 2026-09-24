@@ -29,7 +29,6 @@ def simulate_password_reuse():
     Обирає 3 випадкові індекси зі списку та додає відповідні паролі
     дублікатами в кінець початкового списку.
     """
-    global passwords
     reused_indexes = random.sample(range(len(passwords)), 3)
     for index in reused_indexes:
         passwords.append(passwords[index])
